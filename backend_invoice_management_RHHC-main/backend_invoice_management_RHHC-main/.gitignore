@@ -1,0 +1,12 @@
+node_modules/
+combined.log
+package-lock.json
+.vscode/
+logs/
+uploads/
+zcrm_oauthtokens.txt
+.codegpt/
+
+.codegpt
+.env
+.env.local

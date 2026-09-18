@@ -1,0 +1,39 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          
+          cd /var/www/frontend_invoice_management_RHHC
+
+          echo "Pulling latest code..."
+          git pull origin main
+
+          echo "Installing dependencies..."
+          npm install --force
+
+          echo "Building Next.js project..."
+          npm run build
+
+          echo "Restarting PM2..."
+          pm2 restart myapp
+
+          exit
+          EOF

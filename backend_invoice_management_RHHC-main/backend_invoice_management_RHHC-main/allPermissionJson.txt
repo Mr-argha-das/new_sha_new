@@ -1,0 +1,14 @@
+{
+    "user-management/user": "rwd",
+    "user-management/role": "rwd",
+    "product-management/product":"rwd",
+    "product-management/service":"rwd",
+    "invoice-management/invoice":"rwd", 
+    "accountSetting-management/accountSetting": "rwd",
+    "user-management/staff-task": "rwd",
+    "user-management/staff-pay-slip": "rwd", 
+    "lead-management/lead" : "rwd", 
+    "user-management/staff-experience-category":"rwd", 
+    "user-management/profile" :"rwd"
+     
+}
