@@ -7,7 +7,7 @@ exports.createAccountSettings = async (data) => {
                 account_id, branch_id, name, logo, stamp, qr_scanner, stamp_signature, use_stamp_image, address_lines, 
                 mobile, email, website, bank_details, extra_ids, service_type,
                 created_by, updated_by, created_at, updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
         `;
 
         const params = [
@@ -169,7 +169,7 @@ exports.updateAccountSettings = async (id, data) => {
         extra_ids = ?,
         service_type = ?,
         updated_by = ?,
-        updated_at = NOW()
+        updated_at = datetime('now')
     WHERE id = ? 
 `;
         const params = [
@@ -201,7 +201,7 @@ exports.updateAccountSettings = async (id, data) => {
 
 exports.deleteAccountSettings = async (id, userId) => {
     try {
-        const sql = "UPDATE account_settings SET  updated_by = ?, updated_at = NOW() WHERE id = ?";
+        const sql = "UPDATE account_settings SET  updated_by = ?, updated_at = datetime('now') WHERE id = ?";
         const [result] = await db.execute(sql, [userId, id]);
 
         if (result.affectedRows === 0) {

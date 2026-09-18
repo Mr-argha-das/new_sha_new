@@ -1923,7 +1923,7 @@ exports.getStaffDashboardSummary = async ({
 
     const monthlyPromise = db.execute(
       `
-        SELECT DATE_FORMAT(from_date_time, '%Y-%m') AS month,
+        SELECT strftime('%Y-%m', from_date_time) AS month,
                COUNT(*) AS total
         FROM staff_activity
         WHERE user_id = ?
@@ -1933,7 +1933,7 @@ exports.getStaffDashboardSummary = async ({
           AND status = 'done'
           AND DATE(from_date_time) >= ?
           AND DATE(from_date_time) <= ?
-        GROUP BY DATE_FORMAT(from_date_time, '%Y-%m')
+        GROUP BY strftime('%Y-%m', from_date_time)
         ORDER BY month ASC
       `,
       [

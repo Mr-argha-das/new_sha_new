@@ -103,14 +103,14 @@ exports.getInvoiceSummary = async (data) => {
         }
 
         const monthlySql = `
-      SELECT DATE_FORMAT(i.invoice_date, '%Y-%m') AS month,
+      SELECT strftime('%Y-%m', i.invoice_date) AS month,
              COUNT(i.id) AS invoiceCount
       FROM invoices i
       WHERE i.is_deleted = 0 
         AND i.account_id = ? 
         AND i.branch_id = ?
         AND i.invoice_date BETWEEN ? AND ?
-      GROUP BY DATE_FORMAT(i.invoice_date, '%Y-%m')
+      GROUP BY strftime('%Y-%m', i.invoice_date)
       ORDER BY month ASC
     `;
         const [monthlyRows] = await db.execute(monthlySql, [

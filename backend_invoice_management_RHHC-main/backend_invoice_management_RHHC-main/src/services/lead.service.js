@@ -160,7 +160,7 @@ exports.getInvoiceEligibleLeadItems = async (
           AND is_deleted = 0
           AND COALESCE(status, 0) = 1
           AND end_date IS NOT NULL
-          AND YEAR(end_date) > 0
+          AND CAST(strftime('%Y', end_date) AS INTEGER) > 0
       `,
       [lead_id, account_id, branch_id],
     );
@@ -214,7 +214,7 @@ exports.assertInvoiceItemsEligibleToBill = async (
               COALESCE(status, 0) IN (0, 1)
               AND (
                 end_date IS NULL
-                OR YEAR(end_date) = 0
+                OR CAST(strftime('%Y', end_date) AS INTEGER) = 0
               )
             )
             OR
@@ -222,7 +222,7 @@ exports.assertInvoiceItemsEligibleToBill = async (
               -- Completed items (real end_date) are billable once even if status wasn't updated correctly (0/1)
               COALESCE(status, 0) IN (0, 1)
               AND end_date IS NOT NULL
-              AND YEAR(end_date) > 0
+              AND CAST(strftime('%Y', end_date) AS INTEGER) > 0
             )
             OR
             (
@@ -327,7 +327,7 @@ exports.markCompletedItemsAsBilledAfterInvoice = async (
           AND is_deleted = 0
           AND COALESCE(status, 0) IN (0, 1)
           AND end_date IS NOT NULL
-          AND YEAR(end_date) > 0
+          AND CAST(strftime('%Y', end_date) AS INTEGER) > 0
           AND (${cond})
       `,
       params,
@@ -400,7 +400,7 @@ exports.rollForwardOngoingItemsStartDateAfterInvoice = async (
           AND COALESCE(status, 0) IN (0, 1)
           AND (
             end_date IS NULL
-            OR YEAR(end_date) = 0
+            OR CAST(strftime('%Y', end_date) AS INTEGER) = 0
           )
           AND (${cond})
       `,
@@ -768,7 +768,7 @@ exports.updateLead = async (id, data) => {
               AND branch_id = ?
               AND is_deleted = 0
               AND COALESCE(status, 0) <> 2
-              AND (start_date IS NULL OR YEAR(start_date) = 0)`,
+              AND (start_date IS NULL OR CAST(strftime('%Y', start_date) AS INTEGER) = 0)`,
           [leadStart, id, data.account_id, data.branch_id],
         );
       }

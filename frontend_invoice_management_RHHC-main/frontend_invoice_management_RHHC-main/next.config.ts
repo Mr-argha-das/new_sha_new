@@ -31,6 +31,11 @@ const nextConfig: NextConfig = {
         hostname: 'api.rhhcinvoice.cloud',
         pathname: '/api/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**',
+        pathname: '/api/uploads/**',
+      },
     ],
   },
   typescript: {
@@ -41,6 +46,8 @@ const nextConfig: NextConfig = {
     'puppeteer',
     '@sparticuz/chromium',
   ],
+  
+
 };
 
 export default nextConfig;

@@ -1,0 +1,16 @@
+[Unit]
+Description=RHHC Invoice Backend API
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/rhhc-invoice/backend
+ExecStart=/usr/bin/node src/server.js
+Restart=on-failure
+RestartSec=10
+Environment=NODE_ENV=production
+EnvironmentFile=/var/www/rhhc-invoice/backend/.env
+
+[Install]
+WantedBy=multi-user.target

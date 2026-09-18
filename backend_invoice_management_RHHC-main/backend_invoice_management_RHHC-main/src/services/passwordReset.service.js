@@ -46,7 +46,7 @@ exports.verifyPasswordResetToken = async (token) => {
       SELECT prt.*, u.id as user_id, u.email, u.name
       FROM password_reset_tokens prt
       JOIN users u ON prt.user_id = u.id
-      WHERE prt.token = ? AND prt.used = 0 AND prt.expires_at > NOW()
+      WHERE prt.token = ? AND prt.used = 0 AND prt.expires_at > datetime('now')
       LIMIT 1
     `;
         const [rows] = await db.execute(sql, [token]);

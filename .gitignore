@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# SQLite database (dev only - production uses MySQL)
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Build output
+.next/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+schema.sql
+
+# Uploads
+backend_invoice_management_RHHC-main/backend_invoice_management_RHHC-main/src/uploads/
